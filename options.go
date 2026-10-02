@@ -332,8 +332,10 @@ func (opt *Options) init() {
 	if opt.NodeAddress == "" {
 		opt.NodeAddress = opt.Addr
 	}
+	// Default to RESP2: the RESP3 handshake sends CLIENT MAINT_NOTIFICATIONS,
+	// which Dragonfly rejects. Set Protocol: 3 to opt in to RESP3.
 	if opt.Protocol < 2 {
-		opt.Protocol = 3
+		opt.Protocol = 2
 	}
 	if opt.DialTimeout == 0 {
 		opt.DialTimeout = 5 * time.Second
